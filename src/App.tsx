@@ -1,15 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { Home } from './components/Home'
 import './styles/global.css'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export function App() {
   return (
-    <div className="App">
-
+    <div className="w-screen h-screen flex justify-center items-center">
+      <Home />
     </div>
   )
 }
-
-export default App
