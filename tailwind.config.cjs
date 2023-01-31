@@ -5,7 +5,14 @@ module.exports = {
     "./index.html"
 ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'bank': "url('./src/assets/bank.svg')",
+      },
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif']
+      } 
+    },
   },
   plugins: [],
 }
