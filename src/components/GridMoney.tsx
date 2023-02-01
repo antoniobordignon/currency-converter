@@ -16,21 +16,21 @@ export function GridMoney(){
     } 
 
     return (
-        <div className="text-green-300 h-96 w-96 flex justify-center items-center">
-            <div className="justify-center items-center p-2">
-                <p className="p-2 mb-10 text-center">USD:</p>
+        <div className="text-green-300 sm:flex justify-center items-center">
+            <div className="sm:p-2 ">
+                <p className="mb-10 text-center">USD:</p>
                 <input       
-                    className="bg-black focus:outline-none p-2 w-64 h-32 text-center border-none appearance-none" 
+                    className="bg-black focus:outline-none w-64 h-32 text-center border-none appearance-none flex justify-center items-center m-auto" 
                     type="number" 
                     value={amount}
                     onChange={(e) => setAmount(e.target.valueAsNumber)}
                 />
             </div>
-            <div className="justify-center items-center p-2">
-                <p className="p-2 mb-10 text-center">EUR:</p>
+            <div className="sm:p-2 pt-10">
+                <p className=" mb-10 text-center">EUR:</p>
                 <p 
                     id="output" 
-                    className="bg-black focus:outline-none p-2 w-64 h-32 flex justify-center items-center">
+                    className="bg-black w-64 h-32 flex justify-center items-center m-auto">
                     {calc()}
                 </p>
             </div>
