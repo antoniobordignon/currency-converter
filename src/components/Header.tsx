@@ -1,4 +1,4 @@
-import { Bank, Swap } from "phosphor-react";
+import { Bank } from "phosphor-react";
 
 export function Header() {
     return(
