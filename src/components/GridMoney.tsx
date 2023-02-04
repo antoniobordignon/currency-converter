@@ -1,23 +1,22 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios';
+import { CurrencyChoice } from './CurrencyChoice';
 
 export function GridMoney(){
     
     const [amount = 1, setAmount] = useState<number>()
 
-    const [chooseOutputMoney, setchooseOutputMoney ] = useState("0")
+    const [valueMoney, setValueMoney ] = useState("0")
 
     const getChooseOutpotMoney = async() => {
         try {
             const response = await axios.get(
-                `https://brapi.dev/api/v2/currency?currency=USD-EUR`
+                `https://brapi.dev/api/v2/currency?currency=${changeInputCurrency}-${changeOutputCurrency}`
             );
 
-            let valueChooseOutputMoney = response.data.currency[0].bidPrice
-            
-                console.log(valueChooseOutputMoneyToNumber)
+            let valueOutputMoney = response.data.currency[0].bidPrice
 
-            setchooseOutputMoney(valueChooseOutputMoney)
+            setValueMoney(valueOutputMoney)
         } catch (error) {   
             console.log(error)            
         }
@@ -25,12 +24,14 @@ export function GridMoney(){
 
     useEffect(() => {
         getChooseOutpotMoney()
-    },)
-    let valueChooseOutputMoneyToNumber = parseFloat(chooseOutputMoney)
+    },[])
+    let valueMoneyToNumber = parseFloat(valueMoney)
 
+    let changeInputCurrency = "USD"
+    let changeOutputCurrency = "EUR"
 
     function calc(){
-        let convert = parseFloat((amount * valueChooseOutputMoneyToNumber).toFixed(2))
+        let convert = parseFloat((amount * valueMoneyToNumber).toFixed(2))
         if(amount <= 0 || isNaN(convert)){
             return 0
         } else {
@@ -41,7 +42,9 @@ export function GridMoney(){
     return (
         <div className="text-green-300 sm:flex justify-center items-center">
             <div className="sm:p-2 ">
-                <p className="mb-10 text-center">USD:</p>
+                <div className="mb-10 text-center" >
+                    <CurrencyChoice/>
+                </div>
                 <input       
                     className="bg-black focus:outline-none w-64 h-32 text-center border-none appearance-none flex justify-center items-center m-auto" 
                     type="number" 
@@ -50,13 +53,16 @@ export function GridMoney(){
                 />
             </div>
             <div className="sm:p-2 pt-10">
-                <p className=" mb-10 text-center">EUR:</p>
+                <div className="mb-10 text-center" >
+                    <CurrencyChoice/>
+                </div>
                 <p 
                     id="output" 
                     className="bg-black w-64 h-32 flex justify-center items-center m-auto">
                     {calc()}
                 </p>
             </div>
+ 
         </div>
     )
 }
