@@ -1,8 +1,29 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, ChangeEvent} from 'react'
 import axios from 'axios';
 import { CurrencyChoice } from './CurrencyChoice';
 
+interface Props {
+    onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+    value: string;
+  }
+
 export function GridMoney(){
+    
+    const [valueInputCurrency, setvalueInputCurrency] = useState('USD')
+    
+    function valueSelectedInput(event: ChangeEvent<HTMLSelectElement>){
+        const valueInput = event.target.value
+        setvalueInputCurrency(valueInput)
+    }
+
+
+    const [valueOutputCurrency, setvalueOutputCurrency] = useState('EUR')
+
+
+    function valueSelectedOutput(event: ChangeEvent<HTMLSelectElement>) {
+        const valueOutput = event.target.value
+        setvalueOutputCurrency(valueOutput)
+    }
     
     const [amount = 1, setAmount] = useState<number>()
 
@@ -11,11 +32,10 @@ export function GridMoney(){
     const getChooseOutpotMoney = async() => {
         try {
             const response = await axios.get(
-                `https://brapi.dev/api/v2/currency?currency=${changeInputCurrency}-${changeOutputCurrency}`
+                `https://brapi.dev/api/v2/currency?currency=${valueInputCurrency}-${valueOutputCurrency}`
             );
 
             let valueOutputMoney = response.data.currency[0].bidPrice
-
             setValueMoney(valueOutputMoney)
         } catch (error) {   
             console.log(error)            
@@ -24,11 +44,9 @@ export function GridMoney(){
 
     useEffect(() => {
         getChooseOutpotMoney()
-    },[])
-    let valueMoneyToNumber = parseFloat(valueMoney)
+    },[valueInputCurrency, valueOutputCurrency])
 
-    let changeInputCurrency = "USD"
-    let changeOutputCurrency = "EUR"
+    let valueMoneyToNumber = parseFloat(valueMoney)
 
     function calc(){
         let convert = parseFloat((amount * valueMoneyToNumber).toFixed(2))
@@ -43,7 +61,10 @@ export function GridMoney(){
         <div className="text-green-300 sm:flex justify-center items-center">
             <div className="sm:p-2 ">
                 <div className="mb-10 text-center" >
-                    <CurrencyChoice/>
+                    <CurrencyChoice 
+                    onChange={valueSelectedInput}
+                    value={valueInputCurrency}
+                    />
                 </div>
                 <input       
                     className="bg-black focus:outline-none w-64 h-32 text-center border-none appearance-none flex justify-center items-center m-auto" 
@@ -54,7 +75,10 @@ export function GridMoney(){
             </div>
             <div className="sm:p-2 pt-10">
                 <div className="mb-10 text-center" >
-                    <CurrencyChoice/>
+                    <CurrencyChoice 
+                    onChange={valueSelectedOutput}
+                    value={valueOutputCurrency}
+                    />
                 </div>
                 <p 
                     id="output" 
@@ -62,7 +86,6 @@ export function GridMoney(){
                     {calc()}
                 </p>
             </div>
- 
         </div>
     )
 }
