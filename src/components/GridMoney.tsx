@@ -2,11 +2,6 @@ import {useState, useEffect, ChangeEvent} from 'react'
 import axios from 'axios';
 import { CurrencyChoice } from './CurrencyChoice';
 
-interface Props {
-    onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
-    value: string;
-  }
-
 export function GridMoney(){
     
     const [valueInputCurrency, setvalueInputCurrency] = useState('USD')
@@ -25,7 +20,7 @@ export function GridMoney(){
         setvalueOutputCurrency(valueOutput)
     }
     
-    const [amount = 1, setAmount] = useState<number>()
+    const [amount, setAmount] = useState(1)
 
     const [valueMoney, setValueMoney ] = useState("0")
 
