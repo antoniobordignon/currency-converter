@@ -29,11 +29,14 @@ export function GridMoney(){
             const response = await axios.get(
                 `https://brapi.dev/api/v2/currency?currency=${valueInputCurrency}-${valueOutputCurrency}`
             );
-
             let valueOutputMoney = response.data.currency[0].bidPrice
             setValueMoney(valueOutputMoney)
-        } catch (error) {   
-            console.log(error)            
+        } catch (error) { 
+            if(valueInputCurrency == valueOutputCurrency){
+
+            } else {
+                alert("Sorry. This currency pair was not found.")
+            }
         }
     };
 

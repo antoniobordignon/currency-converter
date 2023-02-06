@@ -25,7 +25,6 @@ export const CurrencyChoice: React.FC<Props> = ({ onChange, value }) => { {
         value={value}
         onChange={onChange}
         >
-            <option value=""></option>
             {currencies.map((currencies) => (
             <option value={currencies.value}>
                 {currencies.currency}
