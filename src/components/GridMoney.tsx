@@ -44,7 +44,11 @@ export function GridMoney(){
     let valueMoneyToNumber = parseFloat(valueMoney)
 
     function calc(){
-        let convert = parseFloat((amount * valueMoneyToNumber).toFixed(2))
+        if(valueInputCurrency == valueOutputCurrency){
+            var convert = parseFloat((amount * 1).toFixed(2))
+        } else{
+            var convert = parseFloat((amount * valueMoneyToNumber).toFixed(2))
+        }
         if(amount <= 0 || isNaN(convert)){
             return 0
         } else {
